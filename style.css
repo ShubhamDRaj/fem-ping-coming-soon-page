@@ -4,6 +4,7 @@
 
     --clr-secondary-300: hsl(223, 100%, 88%);
     --clr-secondary-700: hsl(354, 100%, 66%);
+    --clr-secondary-700-hsl: 354, 100%, 66%;
 
     --clr-neutral-100: hsl(0, 0%, 100%);
     --clr-neutral-500: hsl(0, 0%, 59%);
@@ -132,6 +133,7 @@ body {
 
 .primary-form {
     --border-radius: 50vw;
+    position: relative;
     display: grid;
     row-gap: 0.625rem;
     margin-block-end: 4.5rem;
@@ -149,6 +151,11 @@ body {
     font-size: var(--fs-200-12);
 }
 
+.primary-form > input:focus-visible, .button:focus-visible {
+    border: 1px solid var(--clr-primary-300);;
+    outline: 0;
+}
+
 .button {
     color: var(--clr-neutral-100);
     font-size: var(--fs-200-12);
@@ -163,6 +170,33 @@ body {
 
 .button:where(:hover, :focus) {
     background-color: hsl(var(--clr-primary-300-hsl), 0.7);
+}
+
+.primary-form > input:not(:placeholder-shown):valid {
+    border: 1px solid green;
+}
+
+.primary-form > input:not(:placeholder-shown):invalid {
+    border: 1px solid var(--clr-secondary-700);
+    margin-block-end: 2rem;
+}
+
+.primary-form .error-message {
+    position: absolute;
+    left: 53%;
+    top: 35%;
+    transform: translate(-50%, 50%);
+    font-style: italic;
+    font-size: var(--fs-200-12);
+    color: hsl(var(--clr-secondary-700-hsl), 0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    width: 75%;
+    pointer-events: none;
+  }
+
+.primary-form > input:not(:placeholder-shown):invalid + .error-message {
+    opacity: 1;
 }
 
 .main-img {
@@ -225,6 +259,16 @@ body {
     .button {
         font-size: clamp(0.875rem, 0.5rem + 0.78125vw, 1rem);
         padding: clamp(0.875rem, 0.5rem + 0.78125vw, 1rem) clamp(3rem, 0rem + 6.25vw, 4rem);
+    }
+
+    .primary-form > input:not(:placeholder-shown):invalid {
+        margin-block-end: 0;
+    }
+
+    .primary-form .error-message {
+        width: 40%;
+        top: 115%;
+        transform: translate(-115%);
     }
 
     .main-img {
